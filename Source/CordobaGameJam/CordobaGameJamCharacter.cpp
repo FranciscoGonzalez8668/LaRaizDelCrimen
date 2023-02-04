@@ -7,6 +7,7 @@
 #include "Components/CapsuleComponent.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "RaizDelCrimenHUD.h"
 #include "Engine/World.h"
 
 
@@ -53,6 +54,8 @@ void ACordobaGameJamCharacter::BeginPlay()
 	}
 	LifeReducer();
 
+	ARaizDelCrimenHUD* hud = Cast<ARaizDelCrimenHUD>(GetWorld()->GetFirstPlayerController()->GetHUD());
+	hud->DisplayItem_Event(FText::FromString(TEXT("Test")));
 }
 
 //////////////////////////////////////////////////////////////////////////// Input
