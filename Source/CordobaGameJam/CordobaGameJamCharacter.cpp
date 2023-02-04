@@ -8,6 +8,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "RaizDelCrimenHUD.h"
+#include "PickObject.h"
 #include "Engine/World.h"
 
 
@@ -16,8 +17,6 @@
 
 ACordobaGameJamCharacter::ACordobaGameJamCharacter()
 {
-	// Character doesnt have a rifle at start
-	bHasRifle = false;
 	
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(55.f, 96.0f);
@@ -52,10 +51,8 @@ void ACordobaGameJamCharacter::BeginPlay()
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
-	LifeReducer();
 
-	ARaizDelCrimenHUD* hud = Cast<ARaizDelCrimenHUD>(GetWorld()->GetFirstPlayerController()->GetHUD());
-	hud->DisplayItem_Event(FText::FromString(TEXT("Test")));
+	LifeReducer();
 }
 
 //////////////////////////////////////////////////////////////////////////// Input
@@ -124,6 +121,10 @@ void ACordobaGameJamCharacter::Reducer(){
 	sanity-= damageAmount;
 }
 
-void ACordobaGameJamCharacter::die(AActor* Other){
+void ACordobaGameJamCharacter::die(AActor* Other) {
+	ARaizDelCrimenHUD* hud = Cast<ARaizDelCrimenHUD>(GetWorld()->GetFirstPlayerController()->GetHUD());
+
+	APickObject* pickObject = Cast<APickObject>(Other);
+	hud->DisplayItem_Event(FText::FromString(pickObject->GetPickMessage()));
 	Other->Destroy();
 }
