@@ -26,7 +26,7 @@ class ACordobaGameJamCharacter : public ACharacter
 	/** First person camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* FirstPersonCameraComponent;
-
+    
 	/** MappingContext */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	class UInputMappingContext* DefaultMappingContext;
@@ -42,6 +42,9 @@ class ACordobaGameJamCharacter : public ACharacter
 	
 public:
 	ACordobaGameJamCharacter();
+    
+    UPROPERTY(EditAnywhere, Category = "sanity")
+    unsigned int sanity = 100;
 
 protected:
 	virtual void BeginPlay();
