@@ -7,8 +7,11 @@
 #include "Components/CapsuleComponent.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "SanityMananger.h"
 #include "RaizDelCrimenHUD.h"
 #include "PickObject.h"
+#include "Kismet/GameplayStatics.h"
+
 #include "Engine/World.h"
 
 
@@ -43,6 +46,10 @@ void ACordobaGameJamCharacter::BeginPlay()
 	// Call the base class  
 	Super::BeginPlay();
 
+	TSubclassOf<ASanityMananger> sanity;
+	AActor* sanityActorManager = UGameplayStatics::GetActorOfClass(this, sanity);
+	ASanityMananger* a = Cast<ASanityMananger>(sanityActorManager);
+
 	//Add Input Mapping Context
 	if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
 	{
@@ -52,7 +59,8 @@ void ACordobaGameJamCharacter::BeginPlay()
 		}
 	}
 
-	LifeReducer();
+	ARaizDelCrimenHUD* hud = Cast<ARaizDelCrimenHUD>(GetWorld()->GetFirstPlayerController()->GetHUD());
+	hud->DisplayItem_Event(FText::FromString(TEXT("Test")));
 }
 
 //////////////////////////////////////////////////////////////////////////// Input
@@ -111,14 +119,8 @@ bool ACordobaGameJamCharacter::GetHasRifle()
 	return bHasRifle;
 }
 
-void ACordobaGameJamCharacter::LifeReducer(){
-	UE_LOG(LogTemp, Warning, TEXT("Help"));
-	GetWorld()->GetTimerManager().SetTimer(myTimer,this,&ACordobaGameJamCharacter::Reducer, timeDamage, obscure);
-}
-
-void ACordobaGameJamCharacter::Reducer(){
-	UE_LOG(LogTemp, Warning, TEXT("%f"),sanity);
-	sanity-= damageAmount;
+void ACordobaGameJamCharacter::die(AActor* Other){
+	Other->Destroy();
 }
 
 void ACordobaGameJamCharacter::die(AActor* Other) {

@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "InputActionValue.h"
 #include "PickItemUI.h"
+#include "SanityMananger.h"
 #include "CordobaGameJamCharacter.generated.h"
 
 class UInputComponent;
@@ -20,8 +21,7 @@ class ACordobaGameJamCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
-		UPROPERTY()
-		FTimerHandle myTimer;
+
  	/** Pawn mesh: 1st person view (arms; seen only by self) */
 	UPROPERTY(VisibleDefaultsOnly, Category=Mesh)
 	USkeletalMeshComponent* Mesh1P;
@@ -42,26 +42,9 @@ class ACordobaGameJamCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	class UInputAction* MoveAction;
 
-	
-	UPROPERTY(EditAnywhere, Category = "sanity")
- 	float damageAmount = 1;
-
-	UPROPERTY(EditAnywhere, Category = "sanity")
-    float timeDamage = 1;
-	
-	bool obscure=true;
-	
 public:
 	ACordobaGameJamCharacter();
-	void LifeReducer();
-	void Reducer();
-   	void set_obscure(bool isObscure){ //Set si character en luz
-		obscure=isObscure;
-	}
-
-	UPROPERTY(EditDefaultsOnly, Category = "sanity")
-	float sanity = 100;
-
+	ASanityMananger* Mananger;
 protected:
 	virtual void BeginPlay();
 
