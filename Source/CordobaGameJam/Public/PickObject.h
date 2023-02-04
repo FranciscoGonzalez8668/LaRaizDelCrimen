@@ -11,7 +11,7 @@ UCLASS(BlueprintType)
 class CORDOBAGAMEJAM_API APickObject : public AActor
 {
 	GENERATED_BODY()
-		void Spawn();
+	void Spawn();
 	int realDamageMade = 1;			//da;o real hecho, Puede ser negativo o positivo segun el tipo de enemigo que sea
 
 public:
