@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "../CordobaGameJamCharacter.h"
 #include "PickObject.h"
+#include "../CordobaGameJamCharacter.h"
 
 // Sets default values
 APickObject::APickObject()
