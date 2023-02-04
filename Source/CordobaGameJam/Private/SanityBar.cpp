@@ -31,9 +31,3 @@ void USanityBar::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompo
 
 	// ...
 }
-
-<<<<<<< HEAD
-
-
-=======
->>>>>>> master

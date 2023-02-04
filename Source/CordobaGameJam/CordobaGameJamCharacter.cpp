@@ -45,15 +45,11 @@ void ACordobaGameJamCharacter::BeginPlay()
 {
 	// Call the base class  
 	Super::BeginPlay();
-<<<<<<< HEAD
+
 	TSubclassOf<ASanityMananger> sanity;
 	AActor* sanityActorManager = UGameplayStatics::GetActorOfClass(this, sanity);
 	ASanityMananger* a = Cast<ASanityMananger>(sanityActorManager);
-=======
-	TSubclassOf<ASanatyMananger> sanity;
-	AActor* sanityActorManager = UGameplayStatics::GetActorOfClass(this, sanity);
-	ASanatyMananger* a = Cast<ASanatyMananger>(sanityActorManager);
->>>>>>> master
+
 	//Add Input Mapping Context
 	if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
 	{
@@ -62,11 +58,6 @@ void ACordobaGameJamCharacter::BeginPlay()
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
-<<<<<<< HEAD
-
-=======
- 
->>>>>>> master
 	ARaizDelCrimenHUD* hud = Cast<ARaizDelCrimenHUD>(GetWorld()->GetFirstPlayerController()->GetHUD());
 	hud->DisplayItem_Event(FText::FromString(TEXT("Test")));
 }
@@ -126,10 +117,7 @@ bool ACordobaGameJamCharacter::GetHasRifle()
 {
 	return bHasRifle;
 }
-<<<<<<< HEAD
-=======
 
 void ACordobaGameJamCharacter::die(AActor* Other){
 	Other->Destroy();
 }
->>>>>>> master
