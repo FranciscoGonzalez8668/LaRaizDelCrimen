@@ -14,12 +14,14 @@ class UCameraComponent;
 class UAnimMontage;
 class USoundBase;
 
-UCLASS(config=Game)
+UCLASS(BlueprintType)
 class ACordobaGameJamCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
-	/** Pawn mesh: 1st person view (arms; seen only by self) */
+		UPROPERTY()
+		FTimerHandle myTimer;
+ 	/** Pawn mesh: 1st person view (arms; seen only by self) */
 	UPROPERTY(VisibleDefaultsOnly, Category=Mesh)
 	USkeletalMeshComponent* Mesh1P;
 
@@ -39,12 +41,24 @@ class ACordobaGameJamCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	class UInputAction* MoveAction;
 
+ 	UPROPERTY(EditAnywhere, Category = "sanity")
+    float sanity = 100;
+	
+	UPROPERTY(EditAnywhere, Category = "sanity")
+ 	float damageAmount = 1;
+
+	UPROPERTY(EditAnywhere, Category = "sanity")
+    float timeDamage = 1;
+	
+	bool obscure=true;
 	
 public:
 	ACordobaGameJamCharacter();
-    
-    UPROPERTY(EditAnywhere, Category = "sanity")
-    unsigned int sanity = 100;
+	void LifeReducer();
+	void Reducer();
+   	void set_obscure(bool isObscure){ //Set si character en luz
+		obscure=isObscure;
+	}
 
 protected:
 	virtual void BeginPlay();

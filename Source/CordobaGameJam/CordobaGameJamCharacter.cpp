@@ -7,6 +7,7 @@
 #include "Components/CapsuleComponent.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "Engine/World.h"
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -50,6 +51,7 @@ void ACordobaGameJamCharacter::BeginPlay()
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
+	LifeReducer();
 
 }
 
@@ -107,4 +109,14 @@ void ACordobaGameJamCharacter::SetHasRifle(bool bNewHasRifle)
 bool ACordobaGameJamCharacter::GetHasRifle()
 {
 	return bHasRifle;
+}
+
+void ACordobaGameJamCharacter::LifeReducer(){
+	UE_LOG(LogTemp, Warning, TEXT("Help"));
+	GetWorld()->GetTimerManager().SetTimer(myTimer,this,&ACordobaGameJamCharacter::Reducer, timeDamage, obscure);
+}
+
+void ACordobaGameJamCharacter::Reducer(){
+	UE_LOG(LogTemp, Warning, TEXT("%f"),sanity);
+	sanity-= damageAmount;
 }
