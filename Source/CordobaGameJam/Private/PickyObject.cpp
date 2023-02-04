@@ -14,7 +14,6 @@ APickyObject::APickyObject()
 	else {
 		realDamageMade = (-1) * healingMade;
 	}
-
 }
 
 // Called when the game starts or when spawned
@@ -30,4 +29,5 @@ void APickyObject::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 }
+
 

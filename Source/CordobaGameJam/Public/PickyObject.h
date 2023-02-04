@@ -6,11 +6,12 @@
 #include "GameFramework/Actor.h"
 #include "PickyObject.generated.h"
 
+
 UCLASS(BlueprintType)
 class CORDOBAGAMEJAM_API APickyObject : public AActor
 {
-
 	GENERATED_BODY()
+	void Spawn();
 	int realDamageMade = 1;			//daño real hecho, Puede ser negativo o positivo segun el tipo de enemigo que sea
 	
 public:	
@@ -21,9 +22,14 @@ public:
 	unsigned int healingMade = 1;	//no puede ser negativo 
 	UPROPERTY(EditAnywhere, category = "Hostile")
 	bool isBad = false;
+	UPROPERTY(EditAnywhere, category = "Messages")
+	FString pickMessage = "Default";
 
-	int getDamage(){
+	int GetDamage(){
 		return realDamageMade;
+	}
+	FString GetPickMessage() {
+		return pickMessage;
 	}
 	// Sets default values for this actor's properties
 	
