@@ -1,12 +1,12 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "PickyObject.h"
+#include "PickObject.h"
 
 // Sets default values
-APickyObject::APickyObject()
+APickObject::APickObject()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	if (isBad) {
 		realDamageMade = damageMade;
@@ -17,17 +17,15 @@ APickyObject::APickyObject()
 }
 
 // Called when the game starts or when spawned
-void APickyObject::BeginPlay()
+void APickObject::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 }
 
 // Called every frame
-void APickyObject::Tick(float DeltaTime)
+void APickObject::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
 }
-
-
