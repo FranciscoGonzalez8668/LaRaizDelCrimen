@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "InputActionValue.h"
+#include "PickUpItem.h"
 #include "CordobaGameJamCharacter.generated.h"
 
 class UInputComponent;
@@ -59,6 +60,12 @@ public:
    	void set_obscure(bool isObscure){ //Set si character en luz
 		obscure=isObscure;
 	}
+    
+    UPROPERTY(EditAnywhere, Category="Pick Up Items")
+    TSubclassOf<UPickUpItem> PickUpItemWidget;
+
+    UPROPERTY()
+    UPickUpItem* PickUpItem = nullptr;
 
 protected:
 	virtual void BeginPlay();

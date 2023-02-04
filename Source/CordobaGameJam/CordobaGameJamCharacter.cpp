@@ -7,6 +7,7 @@
 #include "Components/CapsuleComponent.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "UObject/ConstructorHelpers.h"
 #include "Engine/World.h"
 
 
@@ -36,6 +37,11 @@ ACordobaGameJamCharacter::ACordobaGameJamCharacter()
 	//Mesh1P->SetRelativeRotation(FRotator(0.9f, -19.19f, 5.2f));
 	Mesh1P->SetRelativeLocation(FVector(-30.f, 0.f, -150.f));
 
+    /*static ConstructorHelpers::FClassFinder<UPickUpItem> NewPickUpItem(TEXT("/Game/UI/PickUpItem_BPW"));
+    if (NewPickUpItem.Succeeded() && NewPickUpItem.Class != nullptr)
+    {
+        PickUpItemWidget = NewPickUpItem.Class;
+    }*/
 }
 
 void ACordobaGameJamCharacter::BeginPlay()
@@ -51,8 +57,14 @@ void ACordobaGameJamCharacter::BeginPlay()
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
+    
 	LifeReducer();
-
+    
+    /*PickUpItem = CreateWidget<UPickUpItem>(GetWorld(), PickUpItemWidget);
+    if (PickUpItem != nullptr)
+    {
+        PickUpItem->AddToViewport();
+    }*/
 }
 
 //////////////////////////////////////////////////////////////////////////// Input
