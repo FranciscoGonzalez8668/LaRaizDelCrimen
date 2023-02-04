@@ -121,3 +121,7 @@ bool ACordobaGameJamCharacter::GetHasRifle()
 void ACordobaGameJamCharacter::die(AActor* Other){
 	Other->Destroy();
 }
+
+void ACordobaGameJamCharacter::die(AActor* Other){
+	Other->Destroy();
+}
