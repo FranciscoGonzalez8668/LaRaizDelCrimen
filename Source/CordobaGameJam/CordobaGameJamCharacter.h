@@ -6,7 +6,11 @@
 #include "GameFramework/Character.h"
 #include "InputActionValue.h"
 #include "PickItemUI.h"
+<<<<<<< HEAD
 #include "SanityMananger.h"
+=======
+#include "SanatyMananger.h"
+>>>>>>> master
 #include "CordobaGameJamCharacter.generated.h"
 
 class UInputComponent;
@@ -21,7 +25,10 @@ class ACordobaGameJamCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
+<<<<<<< HEAD
 		
+=======
+>>>>>>> master
  	/** Pawn mesh: 1st person view (arms; seen only by self) */
 	UPROPERTY(VisibleDefaultsOnly, Category=Mesh)
 	USkeletalMeshComponent* Mesh1P;
@@ -43,6 +50,7 @@ class ACordobaGameJamCharacter : public ACharacter
 	class UInputAction* MoveAction;
 
 	
+<<<<<<< HEAD
 
 	
 	
@@ -50,12 +58,20 @@ public:
 	ACordobaGameJamCharacter();
 	ASanityMananger* Mananger;
 
+=======
+public:
+	ACordobaGameJamCharacter();
+	ASanatyMananger* Mananger;
+>>>>>>> master
 
 protected:
 	virtual void BeginPlay();
 
 public:
-		
+
+	UFUNCTION(BlueprintCallable)
+	void die(AActor* Other);
+
 	/** Look Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputAction* LookAction;

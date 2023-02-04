@@ -2,7 +2,7 @@
 //Bendi UI
 #include "SanityBar.h"
 
-
+//LowSanityEvent.AddDynamic(this,&USanityBar::ChangeIcon)
 // Sets default values for this component's properties
 USanityBar::USanityBar()
 {
@@ -17,7 +17,7 @@ USanityBar::USanityBar()
 void USanityBar::BeginPlay()
 {
 	Super::BeginPlay();
-	LowSanityEvent.AddDynamic(this,&USanityBar::ChangeIcon);
+	
 
 	// ...
 	
@@ -32,5 +32,8 @@ void USanityBar::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompo
 	// ...
 }
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> master
