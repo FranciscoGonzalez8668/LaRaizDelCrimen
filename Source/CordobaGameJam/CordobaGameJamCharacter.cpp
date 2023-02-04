@@ -123,3 +123,7 @@ void ACordobaGameJamCharacter::Reducer(){
 	UE_LOG(LogTemp, Warning, TEXT("%f"),sanity);
 	sanity-= damageAmount;
 }
+
+void ACordobaGameJamCharacter::die(AActor* Other){
+	Other->Destroy();
+}

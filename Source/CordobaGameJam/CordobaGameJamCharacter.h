@@ -66,7 +66,10 @@ protected:
 	virtual void BeginPlay();
 
 public:
-		
+
+	UFUNCTION(BlueprintCallable)
+	void die(AActor* Other);
+
 	/** Look Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputAction* LookAction;
