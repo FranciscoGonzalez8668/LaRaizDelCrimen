@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "InputActionValue.h"
+#include "PickItemUI.h"
 #include "CordobaGameJamCharacter.generated.h"
 
 class UInputComponent;
