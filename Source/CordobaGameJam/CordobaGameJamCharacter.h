@@ -41,8 +41,6 @@ class ACordobaGameJamCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	class UInputAction* MoveAction;
 
- 	UPROPERTY(EditAnywhere, Category = "sanity")
-    float sanity = 100;
 	
 	UPROPERTY(EditAnywhere, Category = "sanity")
  	float damageAmount = 1;
@@ -59,6 +57,9 @@ public:
    	void set_obscure(bool isObscure){ //Set si character en luz
 		obscure=isObscure;
 	}
+
+	UPROPERTY(EditDefaultsOnly, Category = "sanity")
+	float sanity = 100;
 
 protected:
 	virtual void BeginPlay();
