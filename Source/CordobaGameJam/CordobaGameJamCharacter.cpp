@@ -48,7 +48,6 @@ void ACordobaGameJamCharacter::BeginPlay()
 	AActor *sanityActorManager = UGameplayStatics::GetActorOfClass(this, sanity);
 	SanityMananger = Cast<ASanityMananger>(sanityActorManager);
 
-	// a->set_obscure(false);
 	// Add Input Mapping Context
 	if (APlayerController *PlayerController = Cast<APlayerController>(Controller))
 	{
