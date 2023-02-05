@@ -25,8 +25,16 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Changeables")
 		UStaticMeshComponent* StaticMesh;
 
-	UPROPERTY(editAnywhere, category = "SphereCollider")
+	UPROPERTY(EditAnywhere, category = "SphereCollider")
 		USphereComponent* Sphere;
+
+	UFUNCTION(BlueprintCallable)
+		void Goober();
+
+	UFUNCTION(BlueprintCallable)
+		void NotGoober();
+
+	ASanityMananger* GetMananger();
 
 		protected:
 	// Called when the game starts or when spawned

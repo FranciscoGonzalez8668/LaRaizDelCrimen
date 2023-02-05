@@ -25,10 +25,13 @@ void ASanityMananger::Tick(float DeltaTime)
 }
 
 void ASanityMananger::LifeReducer() {
+	UE_LOG(LogTemp, Warning, TEXT("GonnBeWhat"), )
+
 	GetWorld()->GetTimerManager().SetTimer(myTimer, this, &ASanityMananger::Reducer, timeDamage, obscure);
 }
 
 void ASanityMananger::Reducer() {
+	UE_LOG(LogTemp,Warning, TEXT("ISOBSCURE"))
 	sanity -= damageAmount;
 }
 

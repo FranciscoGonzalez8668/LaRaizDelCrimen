@@ -4,6 +4,7 @@
 #include "LightClass.h"
 #include "SanityMananger.h"
 #include "Kismet/GameplayStatics.h"
+#include "CBJGameInstance.h"
 #include "Components/SphereComponent.h"
 
 // Sets default values
@@ -28,21 +29,50 @@ void ALightClass::BeginPlay()
 {
 	Super::BeginPlay();
 
-	TSubclassOf<ASanityMananger> sanity;
-	AActor* sanityActorManager = UGameplayStatics::GetActorOfClass(this, sanity);
-	Mananger = Cast<ASanityMananger>(sanityActorManager);
-	
 }
 void ALightClass::ReceiveActorBeginOverlap(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult) {
-	UE_LOG(LogTemp, Warning, TEXT("OHAIOSEKKAI"));
-	Mananger->set_obscure(false);
+	
 	}
 	void ALightClass::ReceiveActorEndOverlap(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult) {
+		Mananger = GetMananger();
+		if (Mananger == nullptr)
+		{
+			return;
+		}
 		Mananger->set_obscure(true);
 		Mananger->LifeReducer();
 	}
+	void ALightClass::Goober() {    //A Goober le gusta apager y prender la luz, PERO NO LE GUSTAN LOS NULL POINTERS
+		UE_LOG(LogTemp, Warning, TEXT("Goober"));
+		Mananger = GetMananger();
+		if (Mananger == nullptr)
+		{
+			return;
+		}
+		Mananger->set_obscure(false);
+		Mananger->LifeReducer();
+	}
+	void ALightClass::NotGoober() {  //Goober Dice "Time to play" y apaga la loz
+		UE_LOG(LogTemp, Warning, TEXT("NotGoober"));
+		Mananger = GetMananger();
+		if (Mananger == nullptr)
+		{
+			return;
+		}
+		Mananger->set_obscure(true);
+		Mananger->LifeReducer();
 
+	}
 
+	ASanityMananger* ALightClass::GetMananger() {
+		if (Mananger == nullptr)
+		{
+			UCBJGameInstance* gameInstance = Cast<UCBJGameInstance>(GetGameInstance());
+			Mananger = gameInstance->GetMananger();
+		}
+
+		return Mananger;
+	}
 // Called every frame
 void ALightClass::Tick(float DeltaTime)
 {

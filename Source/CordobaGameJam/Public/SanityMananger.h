@@ -26,7 +26,9 @@ public:
 	ASanityMananger();
 	void ChangeIcon();
 	UPROPERTY(EditDefaultsOnly, Category = "sanity")
-	float sanity = 100;
+		float sanity = 100;
+	UPROPERTY(EditAnywhere, Category = "sanity")
+
 	bool obscure = false;
 	void LifeReducer();
 	void Reducer();
