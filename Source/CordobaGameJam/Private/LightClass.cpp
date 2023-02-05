@@ -43,22 +43,23 @@ void ALightClass::ReceiveActorBeginOverlap(UPrimitiveComponent * OverlappedComp,
 		Mananger->LifeReducer();
 	}
 	void ALightClass::Goober() {    //A Goober le gusta apager y prender la luz, PERO NO LE GUSTAN LOS NULL POINTERS
-		UE_LOG(LogTemp, Warning, TEXT("Goober"));
 		Mananger = GetMananger();
 		if (Mananger == nullptr)
 		{
+			UE_LOG(LogTemp,Warning,TEXT("Mimos Son Mimos"))
 			return;
 		}
+		UE_LOG(LogTemp, Warning, TEXT("Goober"));
 		Mananger->set_obscure(false);
 		Mananger->LifeReducer();
 	}
 	void ALightClass::NotGoober() {  //Goober Dice "Time to play" y apaga la loz
-		UE_LOG(LogTemp, Warning, TEXT("NotGoober"));
 		Mananger = GetMananger();
 		if (Mananger == nullptr)
 		{
 			return;
 		}
+		UE_LOG(LogTemp, Warning, TEXT("NotGoober"));
 		Mananger->set_obscure(true);
 		Mananger->LifeReducer();
 

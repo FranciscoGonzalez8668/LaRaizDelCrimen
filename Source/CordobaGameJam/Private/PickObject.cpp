@@ -1,5 +1,6 @@
 
 #include "PickObject.h"
+#include "Kismet/GameplayStatics.h"
 #include "../CordobaGameJamCharacter.h"
 
 
@@ -39,11 +40,19 @@ APickObject::APickObject()
 void APickObject::BeginPlay()
 {
 	Super::BeginPlay();
-
 }
 
 void APickObject::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+}
 
+void APickObject::PlaySound() 
+{
+	if (isBad) {
+		UGameplayStatics::PlaySoundAtLocation(this, EvilSound, GetOwner()->GetActorLocation());
+	}
+	else {
+		UGameplayStatics::PlaySoundAtLocation(this, NiceSound, GetOwner()->GetActorLocation());
+	}
 }
