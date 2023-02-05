@@ -9,7 +9,9 @@
 #include "EnhancedInputSubsystems.h"
 #include "SanityMananger.h"
 #include "RaizDelCrimenHUD.h"
+#include "PickObject.h"
 #include "Kismet/GameplayStatics.h"
+
 #include "Engine/World.h"
 
 
@@ -18,8 +20,6 @@
 
 ACordobaGameJamCharacter::ACordobaGameJamCharacter()
 {
-	// Character doesnt have a rifle at start
-	bHasRifle = false;
 	
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(55.f, 96.0f);
@@ -56,6 +56,7 @@ void ACordobaGameJamCharacter::BeginPlay()
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
+
 	ARaizDelCrimenHUD* hud = Cast<ARaizDelCrimenHUD>(GetWorld()->GetFirstPlayerController()->GetHUD());
 	hud->DisplayItem_Event(FText::FromString(TEXT("Test")));
 }
@@ -116,6 +117,11 @@ bool ACordobaGameJamCharacter::GetHasRifle()
 	return bHasRifle;
 }
 
-void ACordobaGameJamCharacter::die(AActor* Other){
+
+void ACordobaGameJamCharacter::die(AActor* Other) {
+	ARaizDelCrimenHUD* hud = Cast<ARaizDelCrimenHUD>(GetWorld()->GetFirstPlayerController()->GetHUD());
+
+	APickObject* pickObject = Cast<APickObject>(Other);
+	hud->DisplayItem_Event(FText::FromString(pickObject->GetPickMessage()));
 	Other->Destroy();
 }
