@@ -46,6 +46,9 @@ void ACordobaGameJamCharacter::BeginPlay()
 	// Call the base class  
 	Super::BeginPlay();
 
+	TSubclassOf<ASanityMananger> sanity;
+	AActor* sanityActorManager = UGameplayStatics::GetActorOfClass(this, sanity);
+	SanityMananger = Cast<ASanityMananger>(sanityActorManager);
 
 	//a->set_obscure(false);
 	//Add Input Mapping Context
@@ -116,6 +119,18 @@ void ACordobaGameJamCharacter::die(AActor* Other)
 		if (ARaizDelCrimenHUD* hud = Cast<ARaizDelCrimenHUD>(GetWorld()->GetFirstPlayerController()->GetHUD()))
 		{
 			hud->DisplayItem_Event(FText::FromString(pickObject->GetPickMessage()));
+		}
+
+		if (SanityMananger != nullptr)
+		{
+			SanityMananger->ItemPickedUp(pickObject->GetDamage());
+		}
+
+		class USoundBase* Sound = pickObject->isBad ? pickObject->EvilSound : pickObject->NiceSound;
+
+		if (Sound != nullptr)
+		{
+			UGameplayStatics::PlaySoundAtLocation(this, Sound, GetOwner()->GetActorLocation());
 		}
 	}
 

@@ -20,9 +20,7 @@ class CORDOBAGAMEJAM_API ASanityMananger : public AActor
 	UPROPERTY(EditAnywhere, Category = "sanity")
 	float timeDamage = 1;
 
-	
 public:	
-	// Sets default values for this actor's properties
 	ASanityMananger();
 	void ChangeIcon();
 	UPROPERTY(EditDefaultsOnly, Category = "sanity")
@@ -35,6 +33,8 @@ public:
 	void set_obscure(bool isObscure) { //Set si character en luz
 		obscure = isObscure;
 	}
+
+	void ItemPickedUp(float inSanityAmount) { sanity -= inSanityAmount; }
 
 protected:
 	// Called when the game starts or when spawned
