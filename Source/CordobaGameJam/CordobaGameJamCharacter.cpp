@@ -132,3 +132,18 @@ void ACordobaGameJamCharacter::die(AActor *Other)
 
 	Other->Destroy();
 }
+
+void ACordobaGameJamCharacter::SanityReduce() {
+	UE_LOG(LogTemp, Warning, TEXT("GonnBeWhat"))
+
+		GetWorld()->GetTimerManager().SetTimer(myTimer, this, &ACordobaGameJamCharacter::Reduce, timeDamage, isObscure);
+}
+
+void ACordobaGameJamCharacter::Reduce() {
+	UE_LOG(LogTemp, Warning, TEXT("ISOBSCURE"))
+		playerSanity -= damageAmount;
+}
+
+void ACordobaGameJamCharacter::SetObscure(bool newState) {
+	isObscure = newState;
+}

@@ -2,9 +2,10 @@
 
 
 #include "LightClass.h"
-#include "SanityMananger.h"
 #include "Kismet/GameplayStatics.h"
 #include "CBJGameInstance.h"
+#include "Kismet/GameplayStatics.h"
+#include "../CordobaGameJamCharacter.h"
 #include "Components/SphereComponent.h"
 
 // Sets default values
@@ -19,8 +20,6 @@ ALightClass::ALightClass()
 	Sphere->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
 	Sphere->SetupAttachment(RootComponent);
 	Sphere->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
-	Sphere->OnComponentBeginOverlap.AddDynamic(this, &ALightClass::ReceiveActorBeginOverlap);
-	Sphere->OnComponentBeginOverlap.AddDynamic(this, &ALightClass::ReceiveActorEndOverlap);
 	Sphere->bHiddenInGame = false;
 }
 
@@ -30,20 +29,20 @@ void ALightClass::BeginPlay()
 	Super::BeginPlay();
 
 }
-void ALightClass::ReceiveActorBeginOverlap(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult) {
-	
-	}
-	void ALightClass::ReceiveActorEndOverlap(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult) {
-		Mananger = GetMananger();
-		if (Mananger == nullptr)
-		{
+
+	void ALightClass::Goober() {    //A Goober le gusta apager y prender la luz, PERO NO LE GUSTAN LOS NULL POINTERS
+		ACordobaGameJamCharacter* player = Cast<ACordobaGameJamCharacter>(UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetPawn());
+		if (player == nullptr) {
 			return;
 		}
-		Mananger->set_obscure(true);
-		Mananger->LifeReducer();
-	}
-	void ALightClass::Goober() {    //A Goober le gusta apager y prender la luz, PERO NO LE GUSTAN LOS NULL POINTERS
-		Mananger = GetMananger();
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("ENTERING"))
+				player->SetObscure(false);
+			player->SanityReduce();
+
+		}
+		/*Mananger = GetMananger();
 		if (Mananger == nullptr)
 		{
 			UE_LOG(LogTemp,Warning,TEXT("Mimos Son Mimos"))
@@ -51,18 +50,20 @@ void ALightClass::ReceiveActorBeginOverlap(UPrimitiveComponent * OverlappedComp,
 		}
 		UE_LOG(LogTemp, Warning, TEXT("Goober"));
 		Mananger->set_obscure(false);
-		Mananger->LifeReducer();
+		Mananger->LifeReducer();*/
 	}
 	void ALightClass::NotGoober() {  //Goober Dice "Time to play" y apaga la loz
-		Mananger = GetMananger();
-		if (Mananger == nullptr)
-		{
+	//	ACordobaGameJamCharacter* player = Cast<ACordobaGameJamCharacter>(UGameplayStatics::GetPlayerController(GetWorld(),0). Acontroller::GetPawn());
+		ACordobaGameJamCharacter* player = Cast<ACordobaGameJamCharacter>(UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetPawn());
+		if (player == nullptr) {
+			UE_LOG(LogTemp, Warning, TEXT("NULLED"))
 			return;
+		}else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("FINALIZINGGGINGIGN"))
+			player->SetObscure(true);
+			player->SanityReduce();
 		}
-		UE_LOG(LogTemp, Warning, TEXT("NotGoober"));
-		Mananger->set_obscure(true);
-		Mananger->LifeReducer();
-
 	}
 
 	ASanityMananger* ALightClass::GetMananger() {
