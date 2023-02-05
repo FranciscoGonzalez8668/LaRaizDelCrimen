@@ -14,17 +14,16 @@
 
 #include "Engine/World.h"
 
-
 //////////////////////////////////////////////////////////////////////////
 // ACordobaGameJamCharacter
 
 ACordobaGameJamCharacter::ACordobaGameJamCharacter()
 {
-	
+
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(55.f, 96.0f);
-		
-	// Create a CameraComponent	
+
+	// Create a CameraComponent
 	FirstPersonCameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("FirstPersonCamera"));
 	FirstPersonCameraComponent->SetupAttachment(GetCapsuleComponent());
 	FirstPersonCameraComponent->SetRelativeLocation(FVector(-10.f, 0.f, 60.f)); // Position the camera
@@ -36,34 +35,33 @@ ACordobaGameJamCharacter::ACordobaGameJamCharacter()
 	Mesh1P->SetupAttachment(FirstPersonCameraComponent);
 	Mesh1P->bCastDynamicShadow = false;
 	Mesh1P->CastShadow = false;
-	//Mesh1P->SetRelativeRotation(FRotator(0.9f, -19.19f, 5.2f));
+	// Mesh1P->SetRelativeRotation(FRotator(0.9f, -19.19f, 5.2f));
 	Mesh1P->SetRelativeLocation(FVector(-30.f, 0.f, -150.f));
-
 }
 
 void ACordobaGameJamCharacter::BeginPlay()
 {
-	// Call the base class  
+	// Call the base class
 	Super::BeginPlay();
 
 	TSubclassOf<ASanityMananger> sanity;
-	AActor* sanityActorManager = UGameplayStatics::GetActorOfClass(this, sanity);
+	AActor *sanityActorManager = UGameplayStatics::GetActorOfClass(this, sanity);
 	SanityMananger = Cast<ASanityMananger>(sanityActorManager);
 
-	//a->set_obscure(false);
-	//Add Input Mapping Context
-	if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
+	// a->set_obscure(false);
+	// Add Input Mapping Context
+	if (APlayerController *PlayerController = Cast<APlayerController>(Controller))
 	{
-		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
+		if (UEnhancedInputLocalPlayerSubsystem *Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
 		{
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
 }
 
-void ACordobaGameJamCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
+void ACordobaGameJamCharacter::SetupPlayerInputComponent(class UInputComponent *PlayerInputComponent)
 {
-	if (UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(PlayerInputComponent))
+	if (UEnhancedInputComponent *EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(PlayerInputComponent))
 	{
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &ACharacter::Jump);
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
@@ -74,8 +72,7 @@ void ACordobaGameJamCharacter::SetupPlayerInputComponent(class UInputComponent* 
 	}
 }
 
-
-void ACordobaGameJamCharacter::Move(const FInputActionValue& Value)
+void ACordobaGameJamCharacter::Move(const FInputActionValue &Value)
 {
 	FVector2D MovementVector = Value.Get<FVector2D>();
 
@@ -86,7 +83,7 @@ void ACordobaGameJamCharacter::Move(const FInputActionValue& Value)
 	}
 }
 
-void ACordobaGameJamCharacter::Look(const FInputActionValue& Value)
+void ACordobaGameJamCharacter::Look(const FInputActionValue &Value)
 {
 	FVector2D LookAxisVector = Value.Get<FVector2D>();
 
@@ -107,16 +104,16 @@ bool ACordobaGameJamCharacter::GetHasRifle()
 	return bHasRifle;
 }
 
-void ACordobaGameJamCharacter::die(AActor* Other)
+void ACordobaGameJamCharacter::die(AActor *Other)
 {
 	if (Other == nullptr)
 	{
 		return;
 	}
-	
-	if (APickObject* pickObject = Cast<APickObject>(Other))
+
+	if (APickObject *pickObject = Cast<APickObject>(Other))
 	{
-		if (ARaizDelCrimenHUD* hud = Cast<ARaizDelCrimenHUD>(GetWorld()->GetFirstPlayerController()->GetHUD()))
+		if (ARaizDelCrimenHUD *hud = Cast<ARaizDelCrimenHUD>(GetWorld()->GetFirstPlayerController()->GetHUD()))
 		{
 			hud->DisplayItem_Event(FText::FromString(pickObject->GetPickMessage()));
 		}
@@ -126,7 +123,7 @@ void ACordobaGameJamCharacter::die(AActor* Other)
 			SanityMananger->ItemPickedUp(pickObject->GetDamage());
 		}
 
-		class USoundBase* Sound = pickObject->isBad ? pickObject->EvilSound : pickObject->NiceSound;
+		class USoundBase *Sound = pickObject->isBad ? pickObject->EvilSound : pickObject->NiceSound;
 
 		if (Sound != nullptr)
 		{

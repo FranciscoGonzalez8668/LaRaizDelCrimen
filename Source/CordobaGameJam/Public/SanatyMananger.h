@@ -18,7 +18,7 @@ class CORDOBAGAMEJAM_API ASanatyMananger : public AActor
 		float damageAmount = 1;
 
 	UPROPERTY(EditAnywhere, Category = "sanity")
-		float timeDamage = 1;
+		float timeDamage = 5;
 
 	UPROPERTY(EditDefaultsOnly, Category = "sanity")
 		float sanity = 100;
