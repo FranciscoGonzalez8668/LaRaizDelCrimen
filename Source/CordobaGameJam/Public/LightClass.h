@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Components/SphereComponent.h"
+#include "../CordobaGameJamCharacter.h"
 #include "SanityMananger.h"
 #include "LightClass.generated.h"
 
@@ -14,32 +15,36 @@ class CORDOBAGAMEJAM_API ALightClass : public AActor
 	GENERATED_BODY()
 	
 public:	
-	// Sets default values for this actor's properties
+
 	ALightClass();
+
 	ASanityMananger* Mananger;
+
 	UPROPERTY(EditAnywhere, category = "SphereCollider")
 	float RadioColider;
 
+	ACordobaGameJamCharacter* player;
+
 	void ReceiveActorBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 	void ReceiveActorEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+	
 	UPROPERTY(EditAnywhere, Category = "Changeables")
-		UStaticMeshComponent* StaticMesh;
+	UStaticMeshComponent* StaticMesh;
 
 	UPROPERTY(EditAnywhere, category = "SphereCollider")
-		USphereComponent* Sphere;
+	USphereComponent* Sphere;
 
 	UFUNCTION(BlueprintCallable)
-		void Goober();
+	void Goober();
 
 	UFUNCTION(BlueprintCallable)
-		void NotGoober();
+	void NotGoober();
 
 	ASanityMananger* GetMananger();
 
-		protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+protected:
 
+	virtual void BeginPlay() override;
 
 public:	
 	// Called every frame

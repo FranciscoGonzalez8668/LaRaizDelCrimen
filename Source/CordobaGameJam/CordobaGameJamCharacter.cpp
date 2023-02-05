@@ -117,10 +117,7 @@ void ACordobaGameJamCharacter::die(AActor *Other)
 			hud->DisplayItem_Event(FText::FromString(pickObject->GetPickMessage()));
 		}
 
-		if (SanityMananger != nullptr)
-		{
-			SanityMananger->ItemPickedUp(pickObject->GetDamage());
-		}
+		ItemPickedUp(pickObject->GetDamage());
 
 		class USoundBase *Sound = pickObject->isBad ? pickObject->EvilSound : pickObject->NiceSound;
 

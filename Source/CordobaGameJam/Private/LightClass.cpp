@@ -28,53 +28,46 @@ void ALightClass::BeginPlay()
 {
 	Super::BeginPlay();
 
+	player = Cast<ACordobaGameJamCharacter>(UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetPawn());
 }
 
-	void ALightClass::Goober() {    //A Goober le gusta apager y prender la luz, PERO NO LE GUSTAN LOS NULL POINTERS
-		ACordobaGameJamCharacter* player = Cast<ACordobaGameJamCharacter>(UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetPawn());
-		if (player == nullptr) {
-			return;
-		}
-		else
-		{
-			UE_LOG(LogTemp, Warning, TEXT("ENTERING"))
-				player->SetObscure(false);
-			player->SanityReduce();
-
-		}
-		/*Mananger = GetMananger();
-		if (Mananger == nullptr)
-		{
-			UE_LOG(LogTemp,Warning,TEXT("Mimos Son Mimos"))
-			return;
-		}
-		UE_LOG(LogTemp, Warning, TEXT("Goober"));
-		Mananger->set_obscure(false);
-		Mananger->LifeReducer();*/
+void ALightClass::Goober() {    //A Goober le gusta apager y prender la luz, PERO NO LE GUSTAN LOS NULL POINTERS
+	//ACordobaGameJamCharacter* player = Cast<ACordobaGameJamCharacter>(UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetPawn());
+	if (player == nullptr) {
+		return;
 	}
-	void ALightClass::NotGoober() {  //Goober Dice "Time to play" y apaga la loz
-	//	ACordobaGameJamCharacter* player = Cast<ACordobaGameJamCharacter>(UGameplayStatics::GetPlayerController(GetWorld(),0). Acontroller::GetPawn());
-		ACordobaGameJamCharacter* player = Cast<ACordobaGameJamCharacter>(UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetPawn());
-		if (player == nullptr) {
-			UE_LOG(LogTemp, Warning, TEXT("NULLED"))
-			return;
-		}else
-		{
-			UE_LOG(LogTemp, Warning, TEXT("FINALIZINGGGINGIGN"))
-			player->SetObscure(true);
-			player->SanityReduce();
-		}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("ENTERING"))
+			player->SetObscure(false);
+		player->SanityReduce();
+
+	}
+}
+
+void ALightClass::NotGoober() {  //Goober Dice "Time to play" y apaga la loz
+	//ACordobaGameJamCharacter* player = Cast<ACordobaGameJamCharacter>(UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetPawn());
+	if (player == nullptr) {
+		UE_LOG(LogTemp, Warning, TEXT("NULLED"))
+		return;
+	}else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("FINALIZINGGGINGIGN"))
+		player->SetObscure(true);
+		player->SanityReduce();
+	}
+}
+
+ASanityMananger* ALightClass::GetMananger() {
+	if (Mananger == nullptr)
+	{
+		UCBJGameInstance* gameInstance = Cast<UCBJGameInstance>(GetGameInstance());
+		Mananger = gameInstance->GetMananger();
 	}
 
-	ASanityMananger* ALightClass::GetMananger() {
-		if (Mananger == nullptr)
-		{
-			UCBJGameInstance* gameInstance = Cast<UCBJGameInstance>(GetGameInstance());
-			Mananger = gameInstance->GetMananger();
-		}
+	return Mananger;
+}
 
-		return Mananger;
-	}
 // Called every frame
 void ALightClass::Tick(float DeltaTime)
 {

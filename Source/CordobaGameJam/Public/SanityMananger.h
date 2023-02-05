@@ -22,26 +22,30 @@ class CORDOBAGAMEJAM_API ASanityMananger : public AActor
 
 public:	
 	ASanityMananger();
-	void ChangeIcon();
-	UPROPERTY(EditDefaultsOnly, Category = "sanity")
-		float sanity = 100;
-	UPROPERTY(EditAnywhere, Category = "sanity")
 
+	void ChangeIcon();
+	
+	UPROPERTY(EditDefaultsOnly, Category = "sanity")
+	float sanity = 100;
+
+	UPROPERTY(EditAnywhere, Category = "sanity")
 	bool obscure = false;
+
 	void LifeReducer();
+
 	void Reducer();
-	void set_obscure(bool isObscure) { //Set si character en luz
+
+	void SetIsObscure(bool isObscure) { //Set si character en luz
 		obscure = isObscure;
 	}
 
 	void ItemPickedUp(float inSanityAmount) { sanity -= inSanityAmount; }
 
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
 
 };

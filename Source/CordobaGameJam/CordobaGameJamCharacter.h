@@ -21,7 +21,6 @@ class ACordobaGameJamCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
-
  	/** Pawn mesh: 1st person view (arms; seen only by self) */
 	UPROPERTY(VisibleDefaultsOnly, Category=Mesh)
 	USkeletalMeshComponent* Mesh1P;
@@ -43,13 +42,13 @@ class ACordobaGameJamCharacter : public ACharacter
 	class UInputAction* MoveAction;
 
 	UPROPERTY()
-		FTimerHandle myTimer;
+	FTimerHandle myTimer;
 
 	UPROPERTY(EditAnywhere, Category = "sanity")
-		float damageAmount = 1;
+	float damageAmount = 1;
 
 	UPROPERTY(EditAnywhere, Category = "sanity")
-		float timeDamage = 1;
+	float timeDamage = 1;
 
 public:
 	ACordobaGameJamCharacter();
@@ -61,15 +60,19 @@ public:
 	void SanityReduce();
 
 	UPROPERTY(EditAnywhere, Category="Oscuridad")
-	bool isObscure;
+	bool isObscure = true;
 
 	UFUNCTION(BlueprintCallable)
 	void die(AActor* Other);
 
 	void SetObscure(bool newState);
+
 	void Reduce();
 
+	void ItemPickedUp(float inSanityAmount) { playerSanity -= inSanityAmount; }
 
+	UFUNCTION(BlueprintCallable, Category="Oscuridad")
+	float GetPlayerSanity() { return playerSanity; }
 
 	/** Look Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))

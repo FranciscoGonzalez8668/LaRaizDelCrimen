@@ -9,13 +9,6 @@ APickObject::APickObject()
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	if (isBad) {
-		realDamageMade = damageMade;
-	}
-	else {
-		realDamageMade = (-1) * healingMade;
-	}
-
 	Box_Trigger_Component = CreateDefaultSubobject<UBoxComponent>(TEXT("Collision"));
 	RootComponent = Box_Trigger_Component;
 	Box_Trigger_Component->SetBoxExtent(FVector(50.0f, 50.0f, 20.0f));
@@ -40,6 +33,13 @@ APickObject::APickObject()
 void APickObject::BeginPlay()
 {
 	Super::BeginPlay();
+
+	if (isBad) {
+		realDamageMade = damageMade;
+	}
+	else {
+		realDamageMade = (-1) * healingMade;
+	}
 }
 
 void APickObject::Tick(float DeltaTime)
