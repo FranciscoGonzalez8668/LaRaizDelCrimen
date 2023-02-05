@@ -56,26 +56,17 @@ void ACordobaGameJamCharacter::BeginPlay()
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
-
-	ARaizDelCrimenHUD* hud = Cast<ARaizDelCrimenHUD>(GetWorld()->GetFirstPlayerController()->GetHUD());
-	hud->DisplayItem_Event(FText::FromString(TEXT("Test")));
 }
-
-//////////////////////////////////////////////////////////////////////////// Input
 
 void ACordobaGameJamCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
 {
-	// Set up action bindings
 	if (UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(PlayerInputComponent))
 	{
-		//Jumping
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &ACharacter::Jump);
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
 
-		//Moving
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ACordobaGameJamCharacter::Move);
 
-		//Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ACordobaGameJamCharacter::Look);
 	}
 }
@@ -83,12 +74,10 @@ void ACordobaGameJamCharacter::SetupPlayerInputComponent(class UInputComponent* 
 
 void ACordobaGameJamCharacter::Move(const FInputActionValue& Value)
 {
-	// input is a Vector2D
 	FVector2D MovementVector = Value.Get<FVector2D>();
 
 	if (Controller != nullptr)
 	{
-		// add movement 
 		AddMovementInput(GetActorForwardVector(), MovementVector.Y);
 		AddMovementInput(GetActorRightVector(), MovementVector.X);
 	}
@@ -96,12 +85,10 @@ void ACordobaGameJamCharacter::Move(const FInputActionValue& Value)
 
 void ACordobaGameJamCharacter::Look(const FInputActionValue& Value)
 {
-	// input is a Vector2D
 	FVector2D LookAxisVector = Value.Get<FVector2D>();
 
 	if (Controller != nullptr)
 	{
-		// add yaw and pitch input to controller
 		AddControllerYawInput(LookAxisVector.X);
 		AddControllerPitchInput(LookAxisVector.Y);
 	}
@@ -117,11 +104,20 @@ bool ACordobaGameJamCharacter::GetHasRifle()
 	return bHasRifle;
 }
 
+void ACordobaGameJamCharacter::die(AActor* Other)
+{
+	if (Other == nullptr)
+	{
+		return;
+	}
+	
+	if (APickObject* pickObject = Cast<APickObject>(Other))
+	{
+		if (ARaizDelCrimenHUD* hud = Cast<ARaizDelCrimenHUD>(GetWorld()->GetFirstPlayerController()->GetHUD()))
+		{
+			hud->DisplayItem_Event(FText::FromString(pickObject->GetPickMessage()));
+		}
+	}
 
-void ACordobaGameJamCharacter::die(AActor* Other) {
-	ARaizDelCrimenHUD* hud = Cast<ARaizDelCrimenHUD>(GetWorld()->GetFirstPlayerController()->GetHUD());
-
-	APickObject* pickObject = Cast<APickObject>(Other);
-	hud->DisplayItem_Event(FText::FromString(pickObject->GetPickMessage()));
 	Other->Destroy();
 }
