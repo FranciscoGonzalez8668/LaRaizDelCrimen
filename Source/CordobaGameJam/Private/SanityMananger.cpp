@@ -22,7 +22,6 @@ void ASanityMananger::BeginPlay()
 void ASanityMananger::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 void ASanityMananger::LifeReducer() {

@@ -46,10 +46,8 @@ void ACordobaGameJamCharacter::BeginPlay()
 	// Call the base class  
 	Super::BeginPlay();
 
-	TSubclassOf<ASanityMananger> sanity;
-	AActor* sanityActorManager = UGameplayStatics::GetActorOfClass(this, sanity);
-	ASanityMananger* a = Cast<ASanityMananger>(sanityActorManager);
 
+	//a->set_obscure(false);
 	//Add Input Mapping Context
 	if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
 	{
@@ -116,10 +114,6 @@ void ACordobaGameJamCharacter::SetHasRifle(bool bNewHasRifle)
 bool ACordobaGameJamCharacter::GetHasRifle()
 {
 	return bHasRifle;
-}
-
-void ACordobaGameJamCharacter::die(AActor* Other){
-	Other->Destroy();
 }
 
 void ACordobaGameJamCharacter::die(AActor* Other){
